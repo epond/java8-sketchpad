@@ -1,5 +1,7 @@
 package taterith.aggregate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +35,16 @@ public class AggregateOperations {
                 .mapToInt(Person::getAge)
                 .average()
                 .getAsDouble();
+
+        // Reduction to concatenate integers into a String
+        List<Integer> intList = new ArrayList<Integer>();
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+        String result = intList.stream().reduce(
+                "",                           // Identity element
+                (acc, e) -> acc + e,          // Accumulator function, just like in a traditional fold
+                (str1, str2) -> str1 + str2); // Combiner function is necessary in parallel reductions
+        System.out.println("Concatenated Integers: " + result);
     }
 }
